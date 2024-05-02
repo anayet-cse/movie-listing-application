@@ -103,6 +103,7 @@ def get_user_details(email: str, db: Session = Depends(get_db)):
 
 
 # Search only movies added to favorites
-@app.get("/favorites/{email}/")
-def search_favorites(email: str):
-    return
+@app.get("/favorites/{title}/", response_model=schemas.UserFavoriteOut)
+def search_favorites(title: str, db: Session = Depends(get_db)):
+    favorite_movie = crud.get_user_favorite(db, title=title)
+    return favorite_movie

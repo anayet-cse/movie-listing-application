@@ -42,3 +42,6 @@ class Message(BaseModel):
 class UserDetailsOut(UserBase):
     email: str
     favorite: list[UserFavorite]
+
+class UserFavoriteOut(BaseModel):
+    title: str

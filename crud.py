@@ -43,3 +43,8 @@ def create_favorite(db: Session, add_movie: schemas.UserFavorite):
 def get_user_favorite(db: Session, email: str):
     favorite = db.query(models.UserFavorite).filter(models.UserFavorite.email == email).all()
     return favorite
+
+
+def get_favorite(db: Session, title: str):
+    favorite = db.query(models.UserFavorite).filter(models.UserFavorite.title == title).first()
+    return favorite
