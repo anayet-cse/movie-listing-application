@@ -40,3 +40,6 @@ def create_favorite(db: Session, add_movie: schemas.UserFavorite):
     return db_user
 
 
+def get_user_favorite(db: Session, email: str):
+    favorite = db.query(models.UserFavorite).filter(models.UserFavorite.email == email).all()
+    return favorite

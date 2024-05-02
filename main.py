@@ -93,9 +93,13 @@ def remove_from_favorites(email: str, movie_title: str, db: Session = Depends(ge
 
 
 # User details and their favorite movies
-@app.get("/user/{email}/")
-def get_user_details(email: str):
-    return 
+@app.get("/user/{email}/", response_model=schemas.UserDetailsOut)
+def get_user_details(email: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=email)
+    favorite_movie = crud.get_user_favorite(db, email=email)
+
+    user_out = schemas.UserDetailsOut(email=db_user.email)
+    return user_out(favorite=favorite_movie)
 
 
 # Search only movies added to favorites
